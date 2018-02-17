@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import filtersData from '../data/ufc-fighters.json';
 
 class FightersList extends Component {
   render() {
-    return filtersData.map((fighter) => (
-      <div>
-        <img src={fighter.thumbnail}/>
+    return this.props.listData.map(fighter => (
+      <div key={fighter.id}>
+        <img src={fighter.thumbnail} alt="thumbnail"/>
         <div><b>{fighter.first_name} {fighter.last_name}</b></div>
         <div>{fighter.weight_class}</div>
       </div>

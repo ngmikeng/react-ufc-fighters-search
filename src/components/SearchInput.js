@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-class SearchContainer extends Component {
+class SearchInput extends Component {
   render() {
     return (
       <div className="SearchContainer">
         <div>
-            <input type="text" name="" />
+          <input type="text" onChange={this.props.onChange} />
         </div>
       </div>
     );
   }
 }
 
-export default SearchContainer;
+export default SearchInput;
