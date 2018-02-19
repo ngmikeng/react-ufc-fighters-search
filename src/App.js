@@ -9,12 +9,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResult: fightersData
+      searchResult: fightersData.slice(0, 10)
     };
   }
 
   handleSearchInputChange = (event) => {
-    console.log(event.target.value);
     if (event.target.value) {
       let searchResult = fightersData.filter(fighter => {
         let fighterName = fighter.first_name + ' ' + fighter.last_name;
@@ -26,21 +25,27 @@ class App extends Component {
       });
 
       this.setState({
-        searchResult: searchResult
+        searchResult: searchResult.slice(0, 10)
       });
     } else {
       this.setState({
-        searchResult: fightersData
+        searchResult: fightersData.slice(0, 10)
       });
     }
   }
 
   render() {
+    let searchResult;
+    if (this.state.searchResult && this.state.searchResult.length > 0) {
+      searchResult = <FightersList listData={this.state.searchResult} />;
+    } else {
+      searchResult = <p className="App-no-result">No Result</p>;
+    }
     return (
       <div className="App">
         <Header />
         <SearchInput onChange={this.handleSearchInputChange} />
-        <FightersList listData={this.state.searchResult} />
+        { searchResult }
       </div>
     );
   }
