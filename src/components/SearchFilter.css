@@ -1,0 +1,23 @@
+.SearchFilter {
+  padding: 0 10px;
+}
+
+.SearchFilter ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.SearchFilter ul li {
+  float: left;
+}
+
+.SearchFilter ul li button {
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.SearchFilter ul li button.active {
+  font-weight: bold;
+  border: 2px solid #940000;
+}
