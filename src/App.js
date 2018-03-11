@@ -9,44 +9,65 @@ import fightersData from './data/ufc-fighters.json';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.dataFilter = fightersData.filter(fighter => {
+    this.dataFiltered = fightersData.filter(fighter => {
       return true;
     });
+    this.searchInputValue = '';
     this.state = {
       searchFilter: 'all',
       searchResult: fightersData.slice(0, 10)
     };
   }
-title_holder
+
+  filterByWeightClass = (weightClass, data) => {
+    if (weightClass) {
+      this.dataFiltered = data.filter(fighter => {
+        if (fighter.weight_class) {
+          return fighter.weight_class.toLowerCase().indexOf(weightClass.toLowerCase()) > -1 ;
+        }
+        return false;
+      });
+
+      if (this.dataFiltered && this.dataFiltered.length > 0) {
+        this.setState({
+          searchFilter: weightClass,
+          searchResult: this.dataFiltered.slice(0, 10)
+        });
+      }
+    }
+  }
+
   handleClickSearchFilter = (event) => {
-    console.log(event.target);
     let dataFilter = event.target.getAttribute('data-filter');
     if (dataFilter === 'all') {
       // deep copy array
-      this.dataFilter = fightersData.filter(fighter => {
+      this.dataFiltered = fightersData.filter(fighter => {
         return true;
       });
 
       this.setState({
         searchFilter: dataFilter,
-        searchResult: this.dataFilter.slice(0, 10)
+        searchResult: this.dataFiltered.slice(0, 10)
       });
     } else if (dataFilter === 'champ') {
-      this.dataFilter = fightersData.filter(fighter => {
+      this.dataFiltered = fightersData.filter(fighter => {
         return fighter.title_holder;
       });
 
       this.setState({
         searchFilter: dataFilter,
-        searchResult: this.dataFilter
+        searchResult: this.dataFiltered
       });
+    } else {
+      this.filterByWeightClass(dataFilter, fightersData);
     }
 
   }
 
   handleSearchInputChange = (event) => {
     if (event.target.value) {
-      let searchResult = this.dataFilter.filter(fighter => {
+      this.searchInputValue = event.target.value;
+      let searchResult = this.dataFiltered.filter(fighter => {
         let fighterName = fighter.first_name + ' ' + fighter.last_name;
         fighterName = fighterName.toLowerCase();
         if (fighterName.indexOf(event.target.value.toLowerCase()) > -1) {
@@ -59,8 +80,9 @@ title_holder
         searchResult: searchResult.slice(0, 10)
       });
     } else {
+      this.searchInputValue = '';
       this.setState({
-        searchResult: this.dataFilter.slice(0, 10)
+        searchResult: this.dataFiltered.slice(0, 10)
       });
     }
   }
