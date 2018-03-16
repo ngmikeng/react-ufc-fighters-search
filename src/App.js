@@ -4,22 +4,48 @@ import Header from './components/Header'
 import SearchInput from './components/SearchInput';
 import SearchFilter from './components/SearchFilter';
 import FightersList from './components/FightersList';
-import fightersData from './data/ufc-fighters.json';
+import APIService from './services/APIService';
+import { DataStoreInstance } from './services/DataStore';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.dataFiltered = fightersData.filter(fighter => {
-      return true;
-    });
+    this.dataFiltered = [];
     this.searchInputValue = '';
     this.state = {
       searchFilter: 'all',
-      searchResult: fightersData.slice(0, 10)
+      searchResult: []
     };
+    this.handleClickSearchFilter = this.handleClickSearchFilter.bind(this);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
 
-  filterByWeightClass = (weightClass, data) => {
+  componentDidMount() {
+    let apiService = new APIService();
+
+    apiService
+      .getFighters()
+      .then((fightersData) => {
+        if (fightersData && fightersData.length > 0) {
+          // memory store fighters data
+          DataStoreInstance.setFightersData(fightersData);
+          this.dataFiltered = fightersData;
+          this.setState({
+            searchFilter: 'all',
+            searchResult: fightersData.slice(0, 10)
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  componentWillUnmount() {
+    DataStoreInstance.setFightersData([]);
+  }
+
+  filterByWeightClass(weightClass, data) {
     if (weightClass) {
       this.dataFiltered = data.filter(fighter => {
         if (fighter.weight_class) {
@@ -37,8 +63,10 @@ class App extends Component {
     }
   }
 
-  handleClickSearchFilter = (event) => {
+  handleClickSearchFilter(event) {
     let dataFilter = event.target.getAttribute('data-filter');
+    let fightersData = DataStoreInstance.getFightersData();
+
     if (dataFilter === 'all') {
       // deep copy array
       this.dataFiltered = fightersData.filter(fighter => {
@@ -61,10 +89,9 @@ class App extends Component {
     } else {
       this.filterByWeightClass(dataFilter, fightersData);
     }
-
   }
 
-  handleSearchInputChange = (event) => {
+  handleSearchInputChange(event) {
     if (event.target.value) {
       this.searchInputValue = event.target.value;
       let searchResult = this.dataFiltered.filter(fighter => {

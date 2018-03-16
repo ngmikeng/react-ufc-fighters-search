@@ -1,5 +1,6 @@
 .SearchFilter {
   padding: 0 10px;
+  border-bottom: 1px solid #cdcdcd;
 }
 
 .SearchFilter ul {
@@ -10,6 +11,7 @@
 
 .SearchFilter ul li {
   float: left;
+  padding-bottom: 5px;
 }
 
 .SearchFilter ul li button {

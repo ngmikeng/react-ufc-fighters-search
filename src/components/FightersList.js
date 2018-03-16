@@ -7,7 +7,7 @@ class FightersList extends Component {
       <div key={fighter.id} className="FightersList-item">
         <img src={fighter.thumbnail} alt="thumbnail"/>
         <div><b>{fighter.first_name} {fighter.last_name}</b></div>
-        <div>{fighter.weight_class}</div>
+        <div>{fighter.weight_class ? fighter.weight_class.replace('_', ' ') : ''}</div>
       </div>
     ));
   }
