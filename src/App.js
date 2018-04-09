@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import './App.css';
 import Header from './components/Header'
 import SearchInput from './components/SearchInput';
@@ -6,6 +7,9 @@ import SearchFilter from './components/SearchFilter';
 import FightersList from './components/FightersList';
 import APIService from './services/APIService';
 import { DataStoreInstance } from './services/DataStore';
+
+// Bind modal to app
+Modal.setAppElement('#root');
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +22,7 @@ class App extends Component {
     };
     this.handleClickSearchFilter = this.handleClickSearchFilter.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    // this.handleClickOpenModalFighter = this.handleClickOpenModalFighter.bind(this);
   }
 
   componentDidMount() {
