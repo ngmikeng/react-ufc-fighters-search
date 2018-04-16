@@ -122,7 +122,7 @@ class App extends Component {
   render() {
     let searchResult;
     if (this.state.searchResult && this.state.searchResult.length > 0) {
-      searchResult = <FightersList listData={this.state.searchResult} />;
+      searchResult = <FightersList listData={this.state.searchResult}/>;
     } else {
       searchResult = <p className="App-no-result">No Result</p>;
     }
