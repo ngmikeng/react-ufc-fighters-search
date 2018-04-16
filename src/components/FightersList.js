@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import './FightersList.css';
 import FightersListItem from './FightersListItem';
+import FightersDetail from './FightersDetail';
 
 const customStyles = {
   content: {
@@ -62,20 +63,8 @@ class FightersList extends Component {
             <h2>Fighter</h2>
             <button className="App-modal-close" onClick={this.closeModal}>x</button>
           </div>
-          <div className="App-modal-body fighter-content">
-            <div className="fighter-content-full-img" style={{float: 'left'}}>
-              <img src={this.state.currentFighter.left_full_body_image} alt="fighter-full-img" />
-            </div>
-            <div className="fighter-content-detail" style={{float: 'left'}}>
-              <div>
-                <label>Name</label>
-                <p>{this.state.currentFighter.first_name + ' ' + this.state.currentFighter.last_name}</p>
-              </div>
-              <div>
-                <label>Wins/Losses/Draws</label>
-                <p>{this.state.currentFighter.wins + '/' + this.state.currentFighter.losses + '/' + this.state.currentFighter.draws}</p>
-              </div>
-            </div>
+          <div className="App-modal-body">
+            <FightersDetail fighterData={this.state.currentFighter} />
           </div>
         </Modal>
       </div>

@@ -1,0 +1,20 @@
+.FightersDetail {
+
+}
+
+.FightersDetail .FightersDetail-body-image {
+  float: left;
+}
+
+.FightersDetail .FightersDetail-body-image img {
+  max-height: 325px;
+}
+
+
+.FightersDetail .FightersDetail-info {
+  float: left;
+}
+
+.FightersDetail .FightersDetail-info .FightersDetail-info-label {
+  font-weight: bold;
+}
