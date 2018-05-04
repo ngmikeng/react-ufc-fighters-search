@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './FightersListItem.css';
 
 class FightersListItem extends Component {
@@ -13,5 +14,9 @@ class FightersListItem extends Component {
     );
   }
 }
+
+FightersListItem.propTypes = {
+  dataFighter: PropTypes.object.isRequired
+};
 
 export default FightersListItem;

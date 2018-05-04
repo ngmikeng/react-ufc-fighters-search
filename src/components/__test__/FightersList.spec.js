@@ -6,10 +6,7 @@ import FightersListItem from '../FightersListItem';
 
 const setup = (propOverrides) => {
   const props = Object.assign({
-    listData: [{
-      id: '1',
-      first_name: 'Default Fighter'
-    }],
+    listData: [],
   }, propOverrides);
 
   const wrapper = shallow(<FightersList {...props} />);
@@ -21,8 +18,21 @@ const setup = (propOverrides) => {
 };
 
 describe('FightersList Component', () => {
-  it('should renders without crashing', () => {
+  it('rendered a div', () => {
     const { wrapper } = setup();
-    expect(wrapper).toMatchSnapshot();
+    const divs = wrapper.find('div');
+    expect(divs.length).toBeGreaterThan(0);
+  });
+
+  it('rendered a `FightersListItem`', () => {
+    const props = {
+      listData: [{
+        id: '1',
+        first_name: 'Default Fighter'
+      }]
+    };
+    const { wrapper } = setup(props);
+    const result = wrapper.find(FightersListItem);
+    expect(result.length).toBe(1);
   });
 });

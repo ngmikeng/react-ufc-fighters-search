@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import './FightersList.css';
 import FightersListItem from './FightersListItem';
@@ -71,5 +72,9 @@ class FightersList extends Component {
     )
   }
 }
+
+FightersList.propTypes = {
+  listData: PropTypes.array.isRequired
+};
 
 export default FightersList;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SearchFilter.css';
 
 class SearchFilter extends Component {
@@ -37,5 +38,10 @@ class SearchFilter extends Component {
     );
   }
 }
+
+SearchFilter.propTypes = {
+  currentFilter: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
 
 export default SearchFilter;
