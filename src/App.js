@@ -49,7 +49,7 @@ class App extends Component {
     if (weightClass) {
       this.dataFiltered = data.filter(fighter => {
         if (fighter.weight_class) {
-          return fighter.weight_class.toLowerCase().indexOf(weightClass.toLowerCase()) > -1 ;
+          return fighter.weight_class.toLowerCase() === weightClass.toLowerCase() && fighter.id !== null;
         }
         return false;
       });
@@ -70,7 +70,7 @@ class App extends Component {
     if (dataFilter === 'all') {
       // deep copy array
       this.dataFiltered = fightersData.filter(fighter => {
-        return true;
+        return fighter.id !== null;
       });
 
       this.setState({
@@ -79,7 +79,7 @@ class App extends Component {
       });
     } else if (dataFilter === 'champ') {
       this.dataFiltered = fightersData.filter(fighter => {
-        return fighter.title_holder;
+        return fighter.title_holder && fighter.id !== null;
       });
 
       this.setState({
